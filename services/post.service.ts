@@ -1,7 +1,7 @@
 import { BaseService } from 'vue-axios-http'
 
-export default class UserService extends BaseService {
+export default class PostService extends BaseService {
   constructor(props?: Record<string, any>) {
-    super('users', props || {})
+    super('posts', props || {})
   }
 }

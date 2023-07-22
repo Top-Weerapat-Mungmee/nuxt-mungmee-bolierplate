@@ -81,6 +81,21 @@ export default {
           title: 'Inspire',
           to: '/inspire',
         },
+        {
+          icon: 'mdi-apps',
+          title: 'Todo List',
+          to: '/todos',
+        },
+        {
+          icon: 'mdi-apps',
+          title: 'Posts',
+          to: '/posts',
+        },
+        {
+          icon: 'mdi-apps',
+          title: 'Vuex Posts',
+          to: '/vuex-posts',
+        },
       ],
       miniVariant: false,
       right: true,

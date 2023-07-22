@@ -15,11 +15,12 @@ import {
   vuetify,
   vuetifyDialogue,
   webpackOptimisations,
+  generate,
 } from './config'
 
 export default {
   css: [],
-  plugins: [],
+  plugins: ['@/plugins/vue-placeholders.ts'],
   components: true,
   buildModules: [
     '@nuxt/typescript-build',
@@ -28,6 +29,7 @@ export default {
     '@nuxtjs/vuetify',
     'nuxt-webpack-optimisations',
     '@nuxtjs/google-fonts',
+    '@nuxtjs/composition-api/module',
   ],
   modules: [
     'vue-axios-http/nuxt',
@@ -58,4 +60,5 @@ export default {
   vuetify,
   vuetifyDialogue,
   webpackOptimisations,
+  generate,
 }

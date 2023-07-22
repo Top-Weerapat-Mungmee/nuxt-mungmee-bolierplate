@@ -1,6 +1,6 @@
 export const dayjs = {
   locales: ['en', 'ja'],
-  defaultLocale: 'ja',
-  defaultTimeZone: 'Asia/Tokyo',
+  defaultLocale: 'en',
+  defaultTimeZone: 'Asia/Bangkok',
   plugins: ['utc', 'timezone', 'localeData'],
 }

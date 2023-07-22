@@ -5,4 +5,5 @@ export const axios = {
   retry: true,
   debug: isDev,
   credentials: true,
+  baseURL: process.env.API_URL,
 }
