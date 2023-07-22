@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div v-memo="[isLoading, isError, postData]">
     <button @click="goToPostList">Back to Posts</button>
     <template v-if="isLoading">
       <content-placeholders>
-        <content-placeholders-text :lines="20" />
+        <content-placeholders-text :lines="10" />
       </content-placeholders>
     </template>
     <template v-else-if="isError">

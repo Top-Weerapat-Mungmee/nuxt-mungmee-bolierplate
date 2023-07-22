@@ -18,6 +18,9 @@ export default {
     state.isFetch = false
     state.error = e?.message
   },
+  [GET_POSTS.CLEAR](state: IPostState) {
+    state.isLoading = false
+  },
   [GET_POST_BY_ID.REQUEST](state: IPostState, payload: IPostByIdPayload) {
     if (!state.keys[payload._key]) {
       state.keys = {

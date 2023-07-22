@@ -17,6 +17,8 @@ const getPosts = async (ctx: ActionContext<IPostState, IRootState>) => {
       console.error(e)
       commit(GET_POSTS.FAILURE, e)
     }
+  } else {
+    await commit(GET_POSTS.CLEAR)
   }
 }
 

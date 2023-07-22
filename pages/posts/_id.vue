@@ -14,9 +14,7 @@
       <h1>{{ post.title }}</h1>
       <pre>{{ post.body }}</pre>
       <p>
-        <n-link :to="{ name: 'posts-id', params: { id: post.id + 1 } }">
-          Next article
-        </n-link>
+        <n-link :to="`/posts/${post.id + 1}`"> Next article </n-link>
       </p>
     </template>
     <p>
