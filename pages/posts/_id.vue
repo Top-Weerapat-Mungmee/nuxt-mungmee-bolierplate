@@ -12,7 +12,6 @@
     </template>
     <template v-else>
       <h1>{{ post.title }}</h1>
-      <author :user-id="post.userId" />
       <pre>{{ post.body }}</pre>
       <p>
         <n-link :to="{ name: 'posts-id', params: { id: post.id + 1 } }">
@@ -27,12 +26,7 @@
 </template>
 
 <script>
-import Author from '~/components/Author.vue'
-
 export default {
-  components: {
-    Author,
-  },
   data() {
     return {
       post: {},

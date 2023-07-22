@@ -38,7 +38,6 @@ export default {
       posts: 'post/posts',
       isLoading: 'post/isLoading',
       isError: 'post/isError',
-      isFetch: 'post/isFetch',
       error: 'post/error',
     }),
   },

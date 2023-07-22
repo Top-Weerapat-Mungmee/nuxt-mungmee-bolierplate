@@ -1,5 +1,5 @@
 import { GET_POSTS, GET_POST_BY_ID } from './mutation-types'
-import { IPostState, IPostByIdPayload } from './types'
+import { IPostState, IPostByIdPayload, IPost } from './types'
 
 export default {
   [GET_POSTS.REQUEST](state: IPostState) {
@@ -7,7 +7,7 @@ export default {
     state.isFetch = false
     state.error = null
   },
-  [GET_POSTS.SUCCESS](state: IPostState, payload: []) {
+  [GET_POSTS.SUCCESS](state: IPostState, payload: IPost[]) {
     state.posts = payload
     state.isLoading = false
     state.isFetch = true
@@ -16,7 +16,7 @@ export default {
   [GET_POSTS.FAILURE](state: IPostState, e: Error) {
     state.isLoading = false
     state.isFetch = false
-    state.error = e.message
+    state.error = e?.message
   },
   [GET_POST_BY_ID.REQUEST](state: IPostState, payload: IPostByIdPayload) {
     if (!state.keys[payload._key]) {

@@ -7,13 +7,15 @@
       </content-placeholders>
     </template>
     <template v-else-if="isError">
-      <h1>Post #{{ postId }} not found</h1>
+      <h1>Post #{{ $route.params.id }} not found</h1>
     </template>
     <template v-else>
       <h1>{{ postData.title }}</h1>
       <pre>{{ postData.body }}</pre>
       <p>
-        <n-link :to="`/vuex-posts/${postData.id + 1}`">Prev article</n-link>
+        <template v-if="!isZeroPage">
+          <n-link :to="`/vuex-posts/${postData.id - 1}`">Prev article</n-link>
+        </template>
         &nbsp;-&nbsp;
         <n-link :to="`/vuex-posts/${postData.id + 1}`">Next article</n-link>
       </p>
@@ -21,33 +23,44 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { mapActions, mapGetters } from 'vuex'
-import { IPost, IPostKeys } from '~/store/post/types'
 
 export default {
-  data() {
-    return {
-      postId: this.$route.params.id,
-    }
-  },
   async fetch() {
-    await this.getPostById(this.$route.params.id)
+    const { id } = this.$route.params
+    await this.getPostById(id)
   },
   fetchOnServer: true,
   computed: {
     ...mapGetters({
       postKeys: 'post/postKeys',
-      isLoading: 'post/postByIdLoading',
-      isError: 'post/postByIdIsError',
+      postById: 'post/postById',
+      postByIdLoading: 'post/postByIdLoading',
+      postByIdIsError: 'post/postByIdIsError',
     }),
-    post(): IPostKeys {
-      const data = this.postKeys[this.$route.params.id]
+    isZeroPage() {
+      const { id } = this.$route.params
+      const page = this.postById(id).data.id - 1
+      return page === 0
+    },
+    isLoading() {
+      const { id } = this.$route.params
+      return this.postByIdLoading(id)
+    },
+    isError() {
+      const { id } = this.$route.params
+      return this.postByIdIsError(id)
+    },
+    post() {
+      const { id } = this.$route.params
+      const data = this.postById(id) || {}
       return data
     },
-    postData(): IPost {
-      const data = this.postKeys[this.$route.params.id]?.data
-      return data
+    postData() {
+      const { id } = this.$route.params
+      const data = this.postById(id) || {}
+      return data.data
     },
   },
   methods: {

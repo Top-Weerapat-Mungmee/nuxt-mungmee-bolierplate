@@ -10,9 +10,9 @@ const getPosts = async (ctx: ActionContext<IPostState, IRootState>) => {
   const { commit, state } = ctx
   if (!state.isFetch) {
     try {
-      commit(GET_POSTS.REQUEST)
+      await commit(GET_POSTS.REQUEST)
       const data = await service.all()
-      commit(GET_POSTS.SUCCESS, data)
+      await commit(GET_POSTS.SUCCESS, data)
     } catch (e) {
       console.error(e)
       commit(GET_POSTS.FAILURE, e)
@@ -27,13 +27,13 @@ const getPostById = async (
   const { commit, state } = ctx
   if (!state.keys?.[id]?.isFetch) {
     try {
-      commit(GET_POST_BY_ID.REQUEST, { _key: id })
+      await commit(GET_POST_BY_ID.REQUEST, { _key: id })
       const data = await service.find(id)
       const payload = {
         _key: id,
         data,
       }
-      commit(GET_POST_BY_ID.SUCCESS, payload)
+      await commit(GET_POST_BY_ID.SUCCESS, payload)
     } catch (e: any) {
       console.error(e)
       commit(GET_POST_BY_ID.FAILURE, { _key: id, error: e?.message })
