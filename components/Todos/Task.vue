@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   props: {
     task: {
@@ -31,11 +33,15 @@ export default {
     },
   },
   methods: {
+    ...mapActions({
+      toggleTaskAction: 'task/toggleTask',
+      removeTaskAction: 'task/removeTask',
+    }),
     toggleDone() {
-      this.$store.commit('TOGGLE_TASK', this.task)
+      this.toggleTaskAction(this.task)
     },
     removeTask() {
-      this.$store.commit('REMOVE_TASK', this.task)
+      this.removeTaskAction(this.task)
     },
   },
 }

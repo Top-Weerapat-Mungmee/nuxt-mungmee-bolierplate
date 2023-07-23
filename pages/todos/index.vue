@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import Task from '@/components/Todos/Task.vue'
 
 export default {
@@ -41,9 +42,12 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      addTaskAction: 'task/addTask',
+    }),
     addTask() {
       if (this.newTask) {
-        this.$store.commit('ADD_TASK', this.newTask)
+        this.addTaskAction(this.newTask)
         this.newTask = ''
       }
     },

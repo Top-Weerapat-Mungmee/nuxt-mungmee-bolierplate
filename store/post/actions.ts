@@ -1,7 +1,7 @@
 import { ActionContext } from 'vuex'
-import { IRootState } from '..'
-import { IPostState } from './types'
-import { GET_POSTS, GET_POST_BY_ID } from './mutation-types'
+import type { IRootState } from '..'
+import type { IPostState } from './state'
+import { GET_POSTS, GET_POST_BY_ID } from './mutations'
 import { PostService } from '~/services'
 
 const service = new PostService()
@@ -17,8 +17,6 @@ const getPosts = async (ctx: ActionContext<IPostState, IRootState>) => {
       console.error(e)
       commit(GET_POSTS.FAILURE, e)
     }
-  } else {
-    await commit(GET_POSTS.CLEAR)
   }
 }
 

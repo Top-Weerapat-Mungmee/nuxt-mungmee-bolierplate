@@ -1,4 +1,4 @@
-import { IPost, IPostState } from './types'
+import type { IPost, IPostState } from './state'
 
 export default {
   posts: (state: IPostState): IPost[] => state.posts,

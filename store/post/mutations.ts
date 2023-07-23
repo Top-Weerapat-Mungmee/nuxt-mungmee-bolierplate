@@ -1,5 +1,8 @@
-import { GET_POSTS, GET_POST_BY_ID } from './mutation-types'
-import { IPostState, IPostByIdPayload, IPost } from './types'
+import type { IPostState, IPostByIdPayload, IPost } from './state'
+import { asyncActions } from '~/utils/asyncActions'
+
+export const GET_POSTS = asyncActions('GET_POSTS')
+export const GET_POST_BY_ID = asyncActions('GET_POST_BY_ID')
 
 export default {
   [GET_POSTS.REQUEST](state: IPostState) {
@@ -17,9 +20,6 @@ export default {
     state.isLoading = false
     state.isFetch = false
     state.error = e?.message
-  },
-  [GET_POSTS.CLEAR](state: IPostState) {
-    state.isLoading = false
   },
   [GET_POST_BY_ID.REQUEST](state: IPostState, payload: IPostByIdPayload) {
     if (!state.keys[payload._key]) {
