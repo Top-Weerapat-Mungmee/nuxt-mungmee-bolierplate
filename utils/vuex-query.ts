@@ -6,17 +6,21 @@ export interface IQueryState {
   keys: any
 }
 
-export interface IQueryByIdPayload {
-  _key?: any
-  data: any
-  error?: string | null
-}
-
 export interface IQueryKeys {
   isLoading: boolean
   isFetch: boolean
   error?: string | null
   data?: any
+}
+
+export interface IQueryKeyValue {
+  [key: string]: IQueryKeys
+}
+
+export interface IQueryByIdPayload {
+  _key?: any
+  data: any
+  error?: string | null
 }
 
 const getListRequest = (state: IQueryState) => {

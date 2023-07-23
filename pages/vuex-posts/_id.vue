@@ -54,12 +54,12 @@ export default {
     },
     post() {
       const { id } = this.$route.params
-      const data = this.postById(id) || {}
+      const data = this.postById(id)
       return data
     },
     postData() {
       const { id } = this.$route.params
-      const data = this.postById(id) || {}
+      const data = this.postById(id)
       return data.data
     },
   },
