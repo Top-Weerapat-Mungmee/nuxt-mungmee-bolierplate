@@ -1,40 +1,31 @@
 <template>
-  <v-card title="Task Board">
-    <p>Create a list of tasks</p>
-
-    <div>
-      <v-text-field
-        v-model="newTask"
-        type="text"
-        label="Add Task"
-        density="compact"
-        variant="solo"
-        placeholder="Add new Task"
-        append-inner-icon="mdi-plus"
-        single-line
-        hide-details
-        @click:append-inner="addTask"
-        @keypress.enter="addTask"
-      />
-      <v-btn variant="outlined" @click="addTask">Add</v-btn>
-    </div>
-    <div>
-      <Task
-        v-for="(task, index) in $store.state.task.tasks"
-        :key="index"
-        :task="task"
-      />
-    </div>
-  </v-card>
+  <div>
+    <InputField
+      :id="input"
+      v-model="newTask"
+      placeholder="Add new Task"
+      :label="Name"
+    />
+    <Button @click="addTask">Add Task</Button>
+    <Task
+      v-for="(task, index) in $store.state.task.tasks"
+      :key="index"
+      :task="task"
+    />
+  </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
 import Task from '@/components/Todos/Task.vue'
+import Button from '@/components/Button.vue'
+import InputField from '@/components/Form/InputField.vue'
 
 export default {
   components: {
     Task,
+    Button,
+    InputField,
   },
   data() {
     return {

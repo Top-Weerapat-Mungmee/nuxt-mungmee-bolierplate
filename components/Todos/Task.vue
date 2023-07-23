@@ -1,31 +1,32 @@
 <!-- eslint-disable vue/require-prop-types -->
 <template>
-  <v-card class="mx-auto" max-width="344" variant="outlined">
-    <v-card-item>
-      <div>
-        <div
-          :class="`text-center ${
-            task.done ? 'text-decoration-line-through' : ''
-          }`"
-        >
-          {{ task.content }}
-        </div>
+  <div>
+    <Card :title="task.content">
+      <div
+        :class="`text-center ${
+          task.done ? 'text-decoration-line-through' : ''
+        }`"
+      >
+        {{ task.content }}
       </div>
-    </v-card-item>
-
-    <v-card-actions>
-      <v-btn variant="outlined" @click="toggleDone">{{
+      <Button color="blue" @click="toggleDone">{{
         task.done ? 'Undo' : 'Done'
-      }}</v-btn>
-      <v-btn variant="outlined" @click="removeTask">Delete</v-btn>
-    </v-card-actions>
-  </v-card>
+      }}</Button>
+      <Button color="red" @click="removeTask">Delete</Button>
+    </Card>
+  </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
+import Card from '@/components/Card/Card.vue'
+import Button from '@/components/Button.vue'
 
 export default {
+  components: {
+    Card,
+    Button,
+  },
   props: {
     task: {
       type: Object,

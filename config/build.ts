@@ -24,4 +24,10 @@ export const build: NuxtOptionsBuild = {
       Vary: '*',
     },
   },
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
+  },
 }

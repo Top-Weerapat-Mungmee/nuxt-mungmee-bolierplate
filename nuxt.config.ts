@@ -19,7 +19,7 @@ import {
 } from './config'
 
 export default {
-  css: [],
+  css: ['@/assets/tailwind.scss'],
   plugins: ['@/plugins/vue-placeholders.ts'],
   components: true,
   buildModules: [
@@ -43,6 +43,7 @@ export default {
     '@nuxtjs/component-cache',
     'vue-waiting/nuxt',
     'nuxt-vuex-router-sync',
+    '@nuxtjs/tailwindcss',
   ],
   auth,
   axios,

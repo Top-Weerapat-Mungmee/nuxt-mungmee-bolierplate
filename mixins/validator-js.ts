@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
 import { cloneDeep, get } from 'lodash'
