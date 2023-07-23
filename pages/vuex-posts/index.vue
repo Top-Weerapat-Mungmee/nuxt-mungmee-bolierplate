@@ -1,6 +1,7 @@
 <template>
   <div v-memo="[isLoading, posts, isError]">
     <h1 class="text-header">Vuex posts</h1>
+    <Button v-once color="green" @click="getPosts">Refetch</Button>
     <template v-if="isLoading">
       <content-placeholders>
         <content-placeholders-text :lines="10" />
@@ -24,7 +25,9 @@ import { mapActions, mapGetters } from 'vuex'
 
 export default {
   async fetch() {
-    await this.getPosts()
+    if (!this.isFetch) {
+      await this.getPosts()
+    }
   },
   fetchOnServer: true,
   computed: {
@@ -32,6 +35,7 @@ export default {
       posts: 'post/posts',
       isLoading: 'post/isLoading',
       isError: 'post/isError',
+      isFetch: 'post/isFetch',
       error: 'post/error',
     }),
   },

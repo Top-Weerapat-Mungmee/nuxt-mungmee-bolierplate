@@ -61,7 +61,18 @@ const getDetailSuccess = (state: IQueryState, payload: IQueryByIdPayload) => {
   state.keys[payload._key].isLoading = false
   state.keys[payload._key].isFetch = true
   state.keys[payload._key].error = null
-  state.keys[payload._key].data = payload.data
+  const data = Object.keys(state.keys[payload._key].data)
+  const isHaveData = data.length > 0
+  if (!isHaveData) {
+    state.keys[payload._key].data = {
+      ...payload.data,
+      completed: false,
+    }
+  } else {
+    data.forEach((key: string) => {
+      state.keys[payload._key].data[key] = payload.data[key]
+    })
+  }
 }
 
 const getDetailFailure = (state: IQueryState, payload: IQueryByIdPayload) => {

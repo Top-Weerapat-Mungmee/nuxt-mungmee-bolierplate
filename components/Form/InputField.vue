@@ -4,7 +4,9 @@
       class="input-control"
       type="text"
       :value="value"
+      :placeholder="placeholder"
       autofocus
+      @keypress.enter="$emit('enter')"
       @input="$emit('input', $event.target.value)"
     />
   </div>
@@ -19,10 +21,18 @@ export default {
       required: false,
       default: '',
     },
+    placeholder: {
+      type: String,
+      required: false,
+      default: '',
+    },
   },
   methods: {
     input(e) {
       this.$emit('input', e.target.value)
+    },
+    enter() {
+      this.$emit('keypress.enter')
     },
   },
 }
@@ -30,6 +40,21 @@ export default {
 
 <style scoped>
 .form-control {
-  @apply mb-4 px-2 w-full;
+  margin-bottom: 16px;
+  padding: 0 8px;
+  width: 100%;
+}
+
+.input-control {
+  width: 100%;
+  border-color: rgb(243 244 246);
+  padding: 8px 16px;
+  border-radius: 4px;
+  outline-style: solid;
+  @apply w-full border-gray-100 px-4 py-2 rounded outline;
+}
+
+.input-control:focus {
+  border-color: rgb(59 130 246);
 }
 </style>

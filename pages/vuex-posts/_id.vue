@@ -1,6 +1,7 @@
 <template>
   <div v-memo="[isLoading, isError, postData]">
-    <Button color="blue" @click="goToPostList">Back to Posts</Button>
+    <Button v-once color="blue" @click="goToPostList">Back to Posts</Button>
+    <Button v-once color="green" @click="refetch">Refetch</Button>
     <Card :title="`Post #${$route.params.id}`">
       <p v-if="Boolean(postData.id)" v-memo="[postData.id]">
         <template v-if="!isZeroPage">
@@ -22,7 +23,10 @@
       </template>
       <template v-else>
         <h1 class="text-header">{{ postData.title }}</h1>
-        <p>{{ postData.body }}</p>
+        <p :class="postData.completed ? 'text-decoration-line-through' : ''">
+          {{ postData.body }}
+        </p>
+        <Button color="gray" @click="togglePostById">Toggle</Button>
       </template>
     </Card>
   </div>
@@ -39,7 +43,10 @@ export default {
   },
   async fetch() {
     const { id } = this.$route.params
-    await this.getPostById(id)
+    const { isFetch } = this.postById(id)
+    if (!isFetch) {
+      await this.getPostById(id)
+    }
   },
   fetchOnServer: true,
   computed: {
@@ -69,16 +76,26 @@ export default {
     },
     postData() {
       const { id } = this.$route.params
-      const data = this.postById(id)
-      return data.data
+      const { data } = this.postById(id)
+      return data
     },
   },
   methods: {
     ...mapActions({
       getPostById: 'post/getPostById',
+      togglePostByIdAction: 'post/togglePostById',
     }),
     goToPostList() {
       this.$router.push('/vuex-posts')
+    },
+    togglePostById() {
+      const { id } = this.$route.params
+      const payload = this.postById(id)
+      this.togglePostByIdAction(payload)
+    },
+    async refetch() {
+      const { id } = this.$route.params
+      await this.getPostById(id)
     },
   },
 }

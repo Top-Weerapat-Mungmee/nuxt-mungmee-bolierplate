@@ -1,14 +1,7 @@
 <!-- eslint-disable vue/require-prop-types -->
 <template>
   <div>
-    <Card :title="task.content">
-      <div
-        :class="`text-center ${
-          task.done ? 'text-decoration-line-through' : ''
-        }`"
-      >
-        {{ task.content }}
-      </div>
+    <Card :title="task.content" :done="task.done">
       <Button color="blue" @click="toggleDone">{{
         task.done ? 'Undo' : 'Done'
       }}</Button>

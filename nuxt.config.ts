@@ -19,7 +19,7 @@ import {
 } from './config'
 
 export default {
-  css: ['@/assets/tailwind.scss'],
+  css: [],
   plugins: ['@/plugins/vue-placeholders.ts'],
   components: true,
   buildModules: [
