@@ -1,12 +1,3 @@
-export default () => ({
-  posts: [],
-  isLoading: false,
-  isFetch: false,
-  error: null,
-  keys: {},
-  pagination: {},
-})
-
 export interface IPost {
   _key?: any
   userId: number
@@ -19,7 +10,7 @@ export interface IPostState {
   isLoading: boolean
   isFetch: boolean
   error: string | null
-  posts: IPost[]
+  lists: IPost[]
   keys: any
 }
 
@@ -35,3 +26,11 @@ export interface IPostKeys {
   error?: string | null
   data?: IPost
 }
+
+export default (): IPostState => ({
+  lists: [],
+  isLoading: false,
+  isFetch: false,
+  error: null,
+  keys: {},
+})

@@ -1,4 +1,5 @@
 import type { IPostState, IPostByIdPayload, IPost } from './state'
+import { Mutation } from '~/utils/vuex-query'
 import { asyncActions } from '~/utils/asyncActions'
 
 export const GET_POSTS = asyncActions('GET_POSTS')
@@ -6,70 +7,21 @@ export const GET_POST_BY_ID = asyncActions('GET_POST_BY_ID')
 
 export default {
   [GET_POSTS.REQUEST](state: IPostState) {
-    state.isLoading = true
-    state.isFetch = false
-    state.error = null
+    Mutation.getListRequest(state)
   },
   [GET_POSTS.SUCCESS](state: IPostState, payload: IPost[]) {
-    state.posts = payload
-    state.isLoading = false
-    state.isFetch = true
-    state.error = null
+    Mutation.getListSuccess(state, payload)
   },
-  [GET_POSTS.FAILURE](state: IPostState, e: Error) {
-    state.isLoading = false
-    state.isFetch = false
-    state.error = e?.message
+  [GET_POSTS.FAILURE](state: IPostState, payload: Error) {
+    Mutation.getListFailure(state, payload)
   },
   [GET_POST_BY_ID.REQUEST](state: IPostState, payload: IPostByIdPayload) {
-    if (!state.keys[payload._key]) {
-      state.keys = {
-        ...state.keys,
-        [payload._key]: {
-          isLoading: true,
-          isFetch: false,
-          error: null,
-          data: {},
-        },
-      }
-    } else {
-      state.keys[payload._key] = {
-        isLoading: true,
-        isFetch: false,
-        error: null,
-        data: {
-          ...state.keys[payload._key].data,
-        },
-      }
-    }
+    Mutation.getDetailRequest(state, payload)
   },
   [GET_POST_BY_ID.SUCCESS](state: IPostState, payload: IPostByIdPayload) {
-    state.keys[payload._key] = {
-      isLoading: false,
-      isFetch: true,
-      error: null,
-      data: payload.data,
-    }
+    Mutation.getDetailSuccess(state, payload)
   },
   [GET_POST_BY_ID.FAILURE](state: IPostState, payload: IPostByIdPayload) {
-    if (!state.keys[payload._key]) {
-      state.keys = {
-        ...state.keys,
-        [payload._key]: {
-          isLoading: false,
-          isFetch: false,
-          error: payload.error,
-          data: {},
-        },
-      }
-    } else {
-      state.keys[payload._key] = {
-        isLoading: false,
-        error: payload.error,
-        data: {
-          ...state.keys[payload._key].data,
-        },
-      }
-    }
+    Mutation.getDetailFailure(state, payload)
   },
 }

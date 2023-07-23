@@ -1,7 +1,7 @@
 import type { IPost, IPostState } from './state'
 
 export default {
-  posts: (state: IPostState): IPost[] => state.posts,
+  posts: (state: IPostState): IPost[] => state.lists,
   isLoading: (state: IPostState): boolean => state.isLoading,
   isFetch: (state: IPostState): boolean => state.isFetch,
   isError: (state: IPostState): boolean => Boolean(state.error),
