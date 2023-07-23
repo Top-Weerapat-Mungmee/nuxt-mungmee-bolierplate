@@ -1,8 +1,13 @@
 <template>
   <div>
     <InputField v-model="newTask" placeholder="Add new Task" />
-    <Button @click="addTask">Add Task</Button>
-    <Task v-for="task in $store.state.task.tasks" :key="task.id" :task="task" />
+    <Button v-once @click="addTask">Add Task</Button>
+    <Task
+      v-for="task in $store.state.task.tasks"
+      :key="task.id"
+      v-memo="[task]"
+      :task="task"
+    />
   </div>
 </template>
 
