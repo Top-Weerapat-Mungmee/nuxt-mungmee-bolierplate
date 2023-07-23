@@ -1,11 +1,6 @@
 <template>
   <div>
-    <InputField
-      :id="input"
-      v-model="newTask"
-      placeholder="Add new Task"
-      :label="Name"
-    />
+    <InputField v-model="newTask" placeholder="Add new Task" />
     <Button @click="addTask">Add Task</Button>
     <Task
       v-for="(task, index) in $store.state.task.tasks"
