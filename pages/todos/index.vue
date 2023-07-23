@@ -2,11 +2,7 @@
   <div>
     <InputField v-model="newTask" placeholder="Add new Task" />
     <Button @click="addTask">Add Task</Button>
-    <Task
-      v-for="(task, index) in $store.state.task.tasks"
-      :key="index"
-      :task="task"
-    />
+    <Task v-for="task in $store.state.task.tasks" :key="task.id" :task="task" />
   </div>
 </template>
 

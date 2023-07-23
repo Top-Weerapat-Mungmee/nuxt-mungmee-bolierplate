@@ -1,32 +1,42 @@
 <template>
   <div v-memo="[isLoading, isError, postData]">
-    <button @click="goToPostList">Back to Posts</button>
-    <template v-if="isLoading">
-      <content-placeholders>
-        <content-placeholders-text :lines="10" />
-      </content-placeholders>
-    </template>
-    <template v-else-if="isError">
-      <h1>Post #{{ $route.params.id }} not found</h1>
-    </template>
-    <template v-else>
-      <h1>{{ postData.title }}</h1>
-      <pre>{{ postData.body }}</pre>
-      <p>
+    <Button color="blue" @click="goToPostList">Back to Posts</Button>
+    <Card :title="`Post #${$route.params.id}`">
+      <p v-if="Boolean(postData.id)" v-memo="[postData.id]">
         <template v-if="!isZeroPage">
-          <n-link :to="`/vuex-posts/${postData.id - 1}`">Prev article</n-link>
+          <n-link :to="`/vuex-posts/${postData.id - 1}`">
+            <Button color="gray">Prev</Button>
+          </n-link>
         </template>
-        &nbsp;-&nbsp;
-        <n-link :to="`/vuex-posts/${postData.id + 1}`">Next article</n-link>
+        <n-link :to="`/vuex-posts/${postData.id + 1}`">
+          <Button color="gray">Next</Button>
+        </n-link>
       </p>
-    </template>
+      <template v-if="isLoading">
+        <content-placeholders>
+          <content-placeholders-text :lines="10" />
+        </content-placeholders>
+      </template>
+      <template v-else-if="isError">
+        <h1>Post #{{ $route.params.id }} not found</h1>
+      </template>
+      <template v-else>
+        <h1 class="text-header">{{ postData.title }}</h1>
+        <p>{{ postData.body }}</p>
+      </template>
+    </Card>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-
+import Button from '~/components/Button.vue'
+import Card from '~/components/Card/Card.vue'
 export default {
+  components: {
+    Button,
+    Card,
+  },
   async fetch() {
     const { id } = this.$route.params
     await this.getPostById(id)

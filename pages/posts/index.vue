@@ -1,7 +1,7 @@
 <!-- eslint-disable no-console -->
 <template>
   <div>
-    <h1>Blog posts</h1>
+    <h1 class="text-header">Blog posts</h1>
     <template v-if="$fetchState.pending">
       <content-placeholders>
         <content-placeholders-text :lines="20" />
@@ -11,16 +11,11 @@
       <p>Error while fetching posts: {{ $fetchState.error.message }}</p>
     </template>
     <template v-else>
-      <ul>
-        <li v-for="post of posts" :key="post.id">
-          <n-link :to="`/posts/${post.id}`">
-            {{ post.title }}
-          </n-link>
-        </li>
-        <li>
-          <n-link to="/posts/404"> 404 post </n-link>
-        </li>
-      </ul>
+      <li v-for="post of posts" :key="post.id">
+        <n-link :to="`/posts/${post.id}`">
+          {{ post.title }}
+        </n-link>
+      </li>
     </template>
   </div>
 </template>

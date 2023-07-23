@@ -1,6 +1,6 @@
 <template>
   <div v-memo="[isLoading, posts, isError]">
-    <h1>Vuex posts</h1>
+    <h1 class="text-header">Vuex posts</h1>
     <template v-if="isLoading">
       <content-placeholders>
         <content-placeholders-text :lines="10" />
@@ -10,13 +10,11 @@
       <p>Error while fetching posts: {{ error }}</p>
     </template>
     <template v-else>
-      <ul>
-        <li v-for="post of posts" :key="post.id">
-          <n-link :to="`/vuex-posts/${post.id}`">
-            {{ post.title }}
-          </n-link>
-        </li>
-      </ul>
+      <li v-for="post of posts" :key="post.id">
+        <n-link :to="`/vuex-posts/${post.id}`">
+          {{ post.title }}
+        </n-link>
+      </li>
     </template>
   </div>
 </template>

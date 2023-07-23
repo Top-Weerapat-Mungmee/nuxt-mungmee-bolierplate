@@ -3,29 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-}
-
 @layer components {
-  .btn {
-    @apply font-bold py-2 px-4 rounded;
-  }
-
-  .btn-blue {
-    @apply bg-blue-500 text-white;
-  }
-  
-  .btn-blue:hover {
-    @apply bg-blue-700;
-  }
-
-  .btn-red {
-    @apply bg-red-500 text-white;
-  }
-  
-  .btn-red:hover {
-    @apply bg-red-700;
-  }
 
   .input-control {
     @apply w-full border-gray-100 px-4 py-2 rounded outline;
@@ -33,5 +11,9 @@
   
   .input-control:focus {
     @apply border-blue-500;
+  }
+
+  .text-header {
+    @apply text-2xl font-bold;
   }
 }

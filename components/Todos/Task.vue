@@ -30,7 +30,7 @@ export default {
   props: {
     task: {
       type: Object,
-      default: () => {},
+      required: true,
     },
   },
   methods: {
