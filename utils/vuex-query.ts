@@ -1,3 +1,4 @@
+import Vue from 'vue'
 export interface IQueryState {
   isLoading: boolean
   isFetch: boolean
@@ -44,55 +45,29 @@ const getListFailure = (state: IQueryState, payload: Error) => {
 
 const getDetailRequest = (state: IQueryState, payload: IQueryByIdPayload) => {
   if (!state.keys[payload._key]) {
-    state.keys = {
-      ...state.keys,
-      [payload._key]: {
-        isLoading: true,
-        isFetch: false,
-        error: null,
-        data: {},
-      },
-    }
-  } else {
-    state.keys[payload._key] = {
+    Vue.set(state.keys, payload._key, {
       isLoading: true,
       isFetch: false,
       error: null,
-      data: {
-        ...state.keys[payload._key].data,
-      },
-    }
+      data: {},
+    })
+  } else {
+    state.keys[payload._key].isLoading = true
+    state.keys[payload._key].isFetch = false
+    state.keys[payload._key].error = null
   }
 }
 const getDetailSuccess = (state: IQueryState, payload: IQueryByIdPayload) => {
-  state.keys[payload._key] = {
-    isLoading: false,
-    isFetch: true,
-    error: null,
-    data: payload.data,
-  }
+  state.keys[payload._key].isLoading = false
+  state.keys[payload._key].isFetch = true
+  state.keys[payload._key].error = null
+  state.keys[payload._key].data = payload.data
 }
 
 const getDetailFailure = (state: IQueryState, payload: IQueryByIdPayload) => {
-  if (!state.keys[payload._key]) {
-    state.keys = {
-      ...state.keys,
-      [payload._key]: {
-        isLoading: false,
-        isFetch: false,
-        error: payload.error,
-        data: {},
-      },
-    }
-  } else {
-    state.keys[payload._key] = {
-      isLoading: false,
-      error: payload.error,
-      data: {
-        ...state.keys[payload._key].data,
-      },
-    }
-  }
+  state.keys[payload._key].isLoading = false
+  state.keys[payload._key].isFetch = false
+  state.keys[payload._key].error = payload.error
 }
 
 export const Mutation = {
