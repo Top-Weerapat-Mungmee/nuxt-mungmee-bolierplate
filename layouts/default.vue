@@ -96,6 +96,11 @@ export default {
           title: 'Vuex Posts',
           to: '/vuex-posts',
         },
+        {
+          icon: 'mdi-apps',
+          title: 'Products',
+          to: '/products',
+        },
       ],
       miniVariant: false,
       right: true,
