@@ -51,7 +51,6 @@ export default {
   padding: 8px 16px;
   border-radius: 4px;
   outline-style: solid;
-  @apply w-full border-gray-100 px-4 py-2 rounded outline;
 }
 
 .input-control:focus {

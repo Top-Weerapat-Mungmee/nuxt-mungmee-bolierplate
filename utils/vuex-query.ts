@@ -10,6 +10,7 @@ export interface IQueryState {
 export interface IQueryKeys {
   isLoading: boolean
   isFetch: boolean
+  isCreate: boolean
   error?: string | null
   data?: any
 }
@@ -58,27 +59,42 @@ const getDetailRequest = (state: IQueryState, payload: IQueryByIdPayload) => {
   }
 }
 const getDetailSuccess = (state: IQueryState, payload: IQueryByIdPayload) => {
-  state.keys[payload._key].isLoading = false
-  state.keys[payload._key].isFetch = true
-  state.keys[payload._key].error = null
-  const data = Object.keys(state.keys[payload._key].data)
-  const isHaveData = data.length > 0
-  if (!isHaveData) {
-    state.keys[payload._key].data = {
-      ...payload.data,
-      completed: false,
-    }
-  } else {
-    data.forEach((key: string) => {
-      state.keys[payload._key].data[key] = payload.data[key]
+  if (!state.keys[payload._key]) {
+    Vue.set(state.keys, payload._key, {
+      isLoading: false,
+      isFetch: true,
+      error: null,
+      data: payload.data,
     })
+  } else {
+    state.keys[payload._key].isLoading = false
+    state.keys[payload._key].isFetch = true
+    state.keys[payload._key].error = null
+    const data = Object.keys(state.keys[payload._key].data)
+    const isHaveData = data.length > 0
+    if (!isHaveData) {
+      state.keys[payload._key].data = {
+        ...payload.data,
+      }
+    } else {
+      state.keys[payload._key].data = payload.data
+    }
   }
 }
 
 const getDetailFailure = (state: IQueryState, payload: IQueryByIdPayload) => {
-  state.keys[payload._key].isLoading = false
-  state.keys[payload._key].isFetch = false
-  state.keys[payload._key].error = payload.error
+  if (!state.keys[payload._key]) {
+    Vue.set(state.keys, payload._key, {
+      isLoading: false,
+      isFetch: false,
+      error: payload.error,
+      data: {},
+    })
+  } else {
+    state.keys[payload._key].isLoading = false
+    state.keys[payload._key].isFetch = false
+    state.keys[payload._key].error = payload.error
+  }
 }
 
 export const Mutation = {

@@ -1,4 +1,4 @@
-import type { ITask, ITaskState } from './state'
+import type { ITask, ITaskState } from '~/types/store/task'
 
 export const ADD_TASK = 'ADD_TASK'
 export const REMOVE_TASK = 'REMOVE_TASK'

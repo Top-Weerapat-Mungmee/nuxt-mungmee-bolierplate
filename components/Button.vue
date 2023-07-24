@@ -1,5 +1,5 @@
 <template>
-  <button v-memo="[color]" :class="`btn btn-${color}`" @click="$emit('click')">
+  <button :class="`btn btn-${color}`" @click="$emit('click')">
     <slot></slot>
   </button>
 </template>

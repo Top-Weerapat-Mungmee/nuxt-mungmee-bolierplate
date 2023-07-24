@@ -1,7 +1,7 @@
 import { ActionContext } from 'vuex'
-import type { IRootState } from '..'
-import type { ITask, ITaskState } from './state'
 import { ADD_TASK, TOGGLE_TASK, REMOVE_TASK } from './mutations'
+import type { IRootState } from '~/types/store'
+import type { ITask, ITaskState } from '~/types/store/task'
 
 const addTask = async (
   ctx: ActionContext<ITaskState, IRootState>,

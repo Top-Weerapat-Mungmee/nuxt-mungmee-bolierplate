@@ -23,7 +23,8 @@ export default {
     },
     done: {
       type: Boolean,
-      required: true,
+      required: false,
+      default: false,
     },
   },
 }

@@ -1,7 +1,7 @@
 import { ActionContext } from 'vuex'
-import type { IRootState } from '..'
-import type { IPostByIdPayload, IPostState } from './state'
 import { GET_POSTS, GET_POST_BY_ID, TOGGLE_POST_BY_ID } from './mutations'
+import type { IRootState } from '~/types/store'
+import type { IPostByIdPayload, IPostState } from '~/types/store/post'
 import { PostService } from '~/services'
 
 const service = new PostService()

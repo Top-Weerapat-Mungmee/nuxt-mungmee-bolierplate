@@ -1,4 +1,4 @@
-import type { IPostState, IPostByIdPayload, IPost } from './state'
+import type { IPostState, IPostByIdPayload, IPost } from '~/types/store/post'
 import { Mutation } from '~/utils/vuex-query'
 import { asyncActions } from '~/utils/asyncActions'
 
