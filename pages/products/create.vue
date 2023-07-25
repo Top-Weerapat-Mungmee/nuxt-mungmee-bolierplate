@@ -1,5 +1,5 @@
 <template>
-  <div v-memo="[isLoading, products, isError]">
+  <div>
     <h1 class="text-header">Create Products</h1>
     <v-alert v-if="isError" dense outlined type="error">
       <b>Error :</b> {{ error }}
@@ -36,6 +36,7 @@
           </v-col>
           <v-col cols="12" md="4" xs="12">
             <!-- <v-btn color="secondary" @click="reset">RESET</v-btn> -->
+            <v-btn color="primary" @click="goToProductList"> BACK </v-btn>
             <v-btn :disabled="!valid" color="primary" @click="createProduct">
               CREATE
             </v-btn>
@@ -71,18 +72,9 @@ export default {
       },
     }
   },
-  async fetch() {
-    if (!this.isFetch) {
-      await this.getProducts()
-    }
-  },
-  fetchOnServer: true,
   computed: {
     ...mapGetters({
-      products: 'product/products',
-      isLoading: 'product/isLoading',
       isError: 'product/isError',
-      isFetch: 'product/isFetch',
       isCreate: 'product/isCreate',
       error: 'product/error',
     }),
@@ -96,9 +88,11 @@ export default {
   },
   methods: {
     ...mapActions({
-      getProducts: 'product/getProducts',
       createProductAction: 'product/createProduct',
     }),
+    goToProductList() {
+      this.$router.push('/products')
+    },
     reset() {
       this.$refs.form.reset()
     },

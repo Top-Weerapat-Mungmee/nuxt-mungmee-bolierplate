@@ -3,16 +3,6 @@
     <Button v-once color="blue" @click="goToProductList">Product List</Button>
     <Button v-once color="green" @click="refetch">Refetch</Button>
     <Card :title="`Product #${$route.params.id}`">
-      <p v-if="Boolean(productData.id)" v-memo="[productData.id]">
-        <template v-if="!isZeroPage">
-          <n-link :to="`/products/${productData.id - 1}`">
-            <Button color="gray">Prev</Button>
-          </n-link>
-        </template>
-        <n-link :to="`/products/${productData.id + 1}`">
-          <Button color="gray">Next</Button>
-        </n-link>
-      </p>
       <template v-if="isLoading">
         <content-placeholders>
           <content-placeholders-text :lines="10" />
@@ -57,11 +47,6 @@ export default {
       productByIdLoading: 'product/productByIdLoading',
       productByIdIsError: 'product/productByIdIsError',
     }),
-    isZeroPage() {
-      const { id } = this.$route.params
-      const page = this.productById(id).data.id - 1
-      return page === 0
-    },
     isLoading() {
       const { id } = this.$route.params
       return this.productByIdLoading(id)
