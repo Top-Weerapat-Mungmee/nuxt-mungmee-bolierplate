@@ -54,6 +54,7 @@ export default {
   data() {
     return {
       valid: false,
+      isError: false,
       form: {
         name: '',
         sku: '',
@@ -74,15 +75,19 @@ export default {
   },
   computed: {
     ...mapGetters({
-      isError: 'product/isError',
-      isCreate: 'product/isCreate',
-      error: 'product/error',
+      createId: 'product/createId',
+      error: 'product/createError',
     }),
   },
   watch: {
-    isCreate(newState, oldState) {
+    error(newState) {
+      if (newState) {
+        this.isError = Boolean(newState)
+      }
+    },
+    createId(newState, oldState) {
       if (!oldState && newState) {
-        this.$router.push('/products')
+        this.$router.push(`/products/${newState}`)
       }
     },
   },

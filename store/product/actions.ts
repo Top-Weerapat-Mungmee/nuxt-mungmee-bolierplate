@@ -1,7 +1,17 @@
 import { ActionContext } from 'vuex'
-import { GET_PRODUCTS, GET_PRODUCT_BY_ID, CREATE_PRODUCT } from './mutations'
+import {
+  GET_PRODUCTS,
+  GET_PRODUCT_BY_ID,
+  CREATE_PRODUCT,
+  DELETE_PRODUCT_BY_ID,
+  UPDATE_PRODUCT_BY_ID,
+} from './mutations'
 import type { IRootState } from '~/types/store'
-import type { IProductState, IProductForm } from '~/types/store/product'
+import type {
+  IProductState,
+  IProductForm,
+  IProductUpdateForm,
+} from '~/types/store/product'
 import { ProductService } from '~/services'
 
 const service = new ProductService()
@@ -56,8 +66,52 @@ const createProduct = async (
   }
 }
 
+const updateProductById = async (
+  ctx: ActionContext<IProductState, IRootState>,
+  formPayload: IProductUpdateForm
+) => {
+  const { commit } = ctx
+  const { id, form } = formPayload
+  try {
+    await commit(UPDATE_PRODUCT_BY_ID.REQUEST)
+    const parameters = {
+      data: form,
+    }
+    const { data } = await service.$http.put(`/api/products/${id}`, parameters)
+    const payload = {
+      _key: id,
+      data,
+    }
+    await commit(UPDATE_PRODUCT_BY_ID.SUCCESS, payload)
+  } catch (e: any) {
+    console.error(e)
+    commit(UPDATE_PRODUCT_BY_ID.FAILURE, { _key: id, error: e?.message })
+  }
+}
+
+const deleteProductById = async (
+  ctx: ActionContext<IProductState, IRootState>,
+  id: string
+) => {
+  const { commit } = ctx
+  try {
+    await commit(DELETE_PRODUCT_BY_ID.REQUEST)
+    const { data } = await service.delete(id)
+    const payload = {
+      _key: id,
+      data,
+    }
+    await commit(DELETE_PRODUCT_BY_ID.SUCCESS, payload)
+  } catch (e: any) {
+    console.error(e)
+    commit(DELETE_PRODUCT_BY_ID.FAILURE, e)
+  }
+}
+
 export default {
   getProducts,
   getProductById,
   createProduct,
+  updateProductById,
+  deleteProductById,
 }

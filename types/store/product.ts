@@ -30,17 +30,33 @@ export interface IProductKeyValue {
   [key: string]: IProductKeys
 }
 
+export interface IDataCRUD {
+  id: number
+  isLoading: boolean
+  error?: string | null
+}
+export interface IProductCRUD {
+  create: IDataCRUD
+  update: IDataCRUD
+  delete: IDataCRUD
+}
+
 export interface IProductState {
   isLoading: boolean
   isFetch: boolean
-  isCreate: boolean
   error: string | null
   lists: IProduct[]
   keys: IProductKeyValue
+  crud: IProductCRUD
 }
 
 export interface IProductForm {
   name: string
   sku: string
   price: number
+}
+
+export interface IProductUpdateForm {
+  id: string
+  form: IProductForm
 }

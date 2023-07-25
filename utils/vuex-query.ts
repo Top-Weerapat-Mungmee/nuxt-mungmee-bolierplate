@@ -77,7 +77,10 @@ const getDetailSuccess = (state: IQueryState, payload: IQueryByIdPayload) => {
         ...payload.data,
       }
     } else {
-      state.keys[payload._key].data = payload.data
+      state.keys[payload._key].data = {
+        ...state.keys[payload._key].data,
+        ...payload.data,
+      }
     }
   }
 }
