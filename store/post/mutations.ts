@@ -8,22 +8,22 @@ export const TOGGLE_POST_BY_ID = 'TOGGLE_POST_BY_ID'
 
 export default {
   [GET_POSTS.REQUEST](state: IPostState) {
-    Mutation.getListRequest(state)
+    Mutation.list.request(state)
   },
   [GET_POSTS.SUCCESS](state: IPostState, payload: IPost[]) {
-    Mutation.getListSuccess(state, payload)
+    Mutation.list.success(state, payload)
   },
   [GET_POSTS.FAILURE](state: IPostState, payload: Error) {
-    Mutation.getListFailure(state, payload)
+    Mutation.list.failure(state, payload)
   },
   [GET_POST_BY_ID.REQUEST](state: IPostState, payload: IPostByIdPayload) {
-    Mutation.getDetailRequest(state, payload)
+    Mutation.detail.request(state, payload)
   },
   [GET_POST_BY_ID.SUCCESS](state: IPostState, payload: IPostByIdPayload) {
-    Mutation.getDetailSuccess(state, payload)
+    Mutation.detail.success(state, payload)
   },
   [GET_POST_BY_ID.FAILURE](state: IPostState, payload: IPostByIdPayload) {
-    Mutation.getDetailFailure(state, payload)
+    Mutation.detail.failure(state, payload)
   },
   [TOGGLE_POST_BY_ID](_: IPostState, payload: IPostByIdPayload) {
     payload.data.completed = !payload.data.completed

@@ -18,6 +18,7 @@
           <li>SKU : {{ productData.attributes.sku }}</li>
           <li>ราคา : {{ productData.attributes.price }} บาท</li>
         </ul>
+        <Button v-once color="blue" @click="goToEditProductById">Edit</Button>
       </template>
     </Card>
   </div>
@@ -72,6 +73,10 @@ export default {
     }),
     goToProductList() {
       this.$router.push('/products')
+    },
+    goToEditProductById() {
+      const { id } = this.$route.params
+      this.$router.push(`/products/edit/${id}`)
     },
     async refetch() {
       const { id } = this.$route.params

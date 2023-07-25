@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import type {
   IProductState,
   IProductByIdPayload,
@@ -15,93 +14,68 @@ export const DELETE_PRODUCT_BY_ID = asyncActions('DELETE_PRODUCT_BY_ID')
 
 export default {
   [GET_PRODUCTS.REQUEST](state: IProductState) {
-    Mutation.getListRequest(state)
+    Mutation.list.request(state)
   },
   [GET_PRODUCTS.SUCCESS](state: IProductState, payload: IProduct[]) {
-    Mutation.getListSuccess(state, payload)
+    Mutation.list.success(state, payload)
   },
   [GET_PRODUCTS.FAILURE](state: IProductState, payload: Error) {
-    Mutation.getListFailure(state, payload)
+    Mutation.list.failure(state, payload)
   },
   [GET_PRODUCT_BY_ID.REQUEST](
     state: IProductState,
     payload: IProductByIdPayload
   ) {
-    Mutation.getDetailRequest(state, payload)
+    Mutation.detail.request(state, payload)
   },
   [GET_PRODUCT_BY_ID.SUCCESS](
     state: IProductState,
     payload: IProductByIdPayload
   ) {
-    Mutation.getDetailSuccess(state, payload)
+    Mutation.detail.success(state, payload)
   },
   [GET_PRODUCT_BY_ID.FAILURE](
     state: IProductState,
     payload: IProductByIdPayload
   ) {
-    Mutation.getDetailFailure(state, payload)
+    Mutation.detail.failure(state, payload)
   },
 
   [CREATE_PRODUCT.REQUEST](state: IProductState) {
-    state.crud.create.isLoading = true
-    state.crud.create.id = 0
-    state.crud.create.error = null
+    Mutation.create.request(state)
   },
   [CREATE_PRODUCT.SUCCESS](state: IProductState, payload: IProductByIdPayload) {
-    state.isFetch = false
-    state.crud.create.isLoading = false
-    state.crud.create.id = payload._key
-    state.crud.create.error = null
-    Mutation.getDetailSuccess(state, payload)
+    Mutation.create.success(state, payload)
   },
   [CREATE_PRODUCT.FAILURE](state: IProductState, payload: Error) {
-    state.crud.create.isLoading = false
-    state.crud.create.id = 0
-    state.crud.create.error = payload?.message
+    Mutation.create.failure(state, payload)
   },
   [UPDATE_PRODUCT_BY_ID.REQUEST](state: IProductState) {
-    state.crud.update.isLoading = true
-    state.crud.update.id = 0
-    state.crud.update.error = null
+    Mutation.update.request(state)
   },
   [UPDATE_PRODUCT_BY_ID.SUCCESS](
     state: IProductState,
     payload: IProductByIdPayload
   ) {
-    state.isFetch = false
-    state.crud.update.isLoading = false
-    state.crud.update.id = payload._key
-    state.crud.update.error = null
-    Mutation.getDetailSuccess(state, payload)
-    state.keys[payload._key].isFetch = false
+    Mutation.update.success(state, payload)
   },
   [UPDATE_PRODUCT_BY_ID.FAILURE](
     state: IProductState,
     payload: IProductByIdPayload
   ) {
-    state.crud.update.isLoading = false
-    state.crud.update.id = 0
-    state.crud.update.error = payload?.error
+    Mutation.update.failure(state, payload)
   },
 
   [DELETE_PRODUCT_BY_ID.REQUEST](state: IProductState) {
-    state.crud.delete.isLoading = true
-    state.crud.delete.id = 0
-    state.crud.delete.error = null
+    Mutation.delete.request(state)
   },
   [DELETE_PRODUCT_BY_ID.SUCCESS](
     state: IProductState,
     payload: IProductByIdPayload
   ) {
-    state.isFetch = false
-    state.crud.delete.isLoading = false
-    state.crud.delete.id = payload._key
-    state.crud.delete.error = null
-    Vue.delete(state.keys, payload._key)
+    Mutation.delete.success(state, payload)
   },
   [DELETE_PRODUCT_BY_ID.FAILURE](state: IProductState, payload: Error) {
-    state.crud.delete.isLoading = false
-    state.crud.delete.id = 0
-    state.crud.delete.error = payload?.message
+    Mutation.delete.failure(state, payload)
   },
 }

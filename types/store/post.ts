@@ -18,12 +18,24 @@ export interface IPostKeyValue {
   [key: string]: IPostKeys
 }
 
+export interface IDataCRUD {
+  id: number
+  isLoading: boolean
+  error?: string | null
+}
+export interface IPostCRUD {
+  create: IDataCRUD
+  update: IDataCRUD
+  delete: IDataCRUD
+}
+
 export interface IPostState {
   isLoading: boolean
   isFetch: boolean
   error: string | null
   lists: IPost[]
   keys: IPostKeyValue
+  crud: IPostCRUD
 }
 
 export interface IPostByIdPayload {

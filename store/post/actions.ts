@@ -10,7 +10,10 @@ const getPosts = async (ctx: ActionContext<IPostState, IRootState>) => {
   const { commit } = ctx
   try {
     await commit(GET_POSTS.REQUEST)
-    const data = await service.all()
+    const { data } = await service.$http({
+      baseURL: 'https://jsonplaceholder.typicode.com',
+      url: '/posts',
+    })
     await commit(GET_POSTS.SUCCESS, data)
   } catch (e) {
     console.error(e)
@@ -25,7 +28,10 @@ const getPostById = async (
   const { commit } = ctx
   try {
     await commit(GET_POST_BY_ID.REQUEST, { _key: id })
-    const data = await service.find(id)
+    const { data } = await service.$http({
+      baseURL: 'https://jsonplaceholder.typicode.com',
+      url: `/posts/${id}`,
+    })
     const payload = {
       _key: id,
       data,
