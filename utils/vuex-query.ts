@@ -1,4 +1,10 @@
 import Vue from 'vue'
+export interface IAsyncType {
+  REQUEST: string
+  SUCCESS: string
+  FAILURE: string
+  CLEAR?: string
+}
 
 export interface IQueryDataCRUD {
   id: number
@@ -180,6 +186,71 @@ const deleteDataByIdFailure = (state: IQueryState, payload: Error) => {
   state.crud.delete.id = 0
   state.crud.delete.error = payload?.message
 }
+
+export const asyncActions = (key: string): IAsyncType => ({
+  REQUEST: `${key}_REQUEST`,
+  SUCCESS: `${key}_SUCCESS`,
+  FAILURE: `${key}_FAILURE`,
+  CLEAR: `${key}_CLEAR`,
+})
+
+export const createMutation = (asyncType: IAsyncType) => ({
+  list: {
+    [asyncType.REQUEST](state: IQueryState) {
+      Mutation.list.request(state)
+    },
+    [asyncType.SUCCESS](state: IQueryState, payload: any[]) {
+      Mutation.list.success(state, payload)
+    },
+    [asyncType.FAILURE](state: IQueryState, payload: Error) {
+      Mutation.list.failure(state, payload)
+    },
+  },
+  detail: {
+    [asyncType.REQUEST](state: IQueryState, payload: IQueryByIdPayload) {
+      Mutation.detail.request(state, payload)
+    },
+    [asyncType.SUCCESS](state: IQueryState, payload: IQueryByIdPayload) {
+      Mutation.detail.success(state, payload)
+    },
+    [asyncType.FAILURE](state: IQueryState, payload: IQueryByIdPayload) {
+      Mutation.detail.failure(state, payload)
+    },
+  },
+  create: {
+    [asyncType.REQUEST](state: IQueryState) {
+      Mutation.create.request(state)
+    },
+    [asyncType.SUCCESS](state: IQueryState, payload: IQueryByIdPayload) {
+      Mutation.create.success(state, payload)
+    },
+    [asyncType.FAILURE](state: IQueryState, payload: Error) {
+      Mutation.create.failure(state, payload)
+    },
+  },
+  update: {
+    [asyncType.REQUEST](state: IQueryState) {
+      Mutation.update.request(state)
+    },
+    [asyncType.SUCCESS](state: IQueryState, payload: IQueryByIdPayload) {
+      Mutation.update.success(state, payload)
+    },
+    [asyncType.FAILURE](state: IQueryState, payload: IQueryByIdPayload) {
+      Mutation.update.failure(state, payload)
+    },
+  },
+  delete: {
+    [asyncType.REQUEST](state: IQueryState) {
+      Mutation.delete.request(state)
+    },
+    [asyncType.SUCCESS](state: IQueryState, payload: IQueryByIdPayload) {
+      Mutation.delete.success(state, payload)
+    },
+    [asyncType.FAILURE](state: IQueryState, payload: Error) {
+      Mutation.delete.failure(state, payload)
+    },
+  },
+})
 
 export const Mutation = {
   list: {
