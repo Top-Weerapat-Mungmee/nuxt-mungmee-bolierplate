@@ -1,6 +1,6 @@
 import { IProductState } from '~/types/store/product'
 
-export default (): IProductState => ({
+const state = (): IProductState => ({
   lists: [],
   isLoading: false,
   isFetch: false,
@@ -24,3 +24,7 @@ export default (): IProductState => ({
     },
   },
 })
+
+export type ProductState = ReturnType<typeof state>
+
+export default state

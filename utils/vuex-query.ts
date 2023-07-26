@@ -42,6 +42,20 @@ export interface IQueryByIdPayload {
   error?: string | null
 }
 
+type MutationType<S> = (state: S, payload?: any) => any
+
+interface IMutationSchemaKey<S> {
+  [key: string]: MutationType<S>
+}
+
+interface IMutationSchema<S> {
+  list: IMutationSchemaKey<S>
+  detail: IMutationSchemaKey<S>
+  create: IMutationSchemaKey<S>
+  update: IMutationSchemaKey<S>
+  delete: IMutationSchemaKey<S>
+}
+
 const getListRequest = (state: IQueryState) => {
   state.isLoading = true
   state.isFetch = false
@@ -194,88 +208,42 @@ export const asyncActions = (key: string): IAsyncType => ({
   CLEAR: `${key}_CLEAR`,
 })
 
-export const createMutation = (asyncType: IAsyncType) => ({
-  list: {
-    [asyncType.REQUEST](state: IQueryState) {
-      Mutation.list.request(state)
-    },
-    [asyncType.SUCCESS](state: IQueryState, payload: any[]) {
-      Mutation.list.success(state, payload)
-    },
-    [asyncType.FAILURE](state: IQueryState, payload: Error) {
-      Mutation.list.failure(state, payload)
-    },
-  },
-  detail: {
-    [asyncType.REQUEST](state: IQueryState, payload: IQueryByIdPayload) {
-      Mutation.detail.request(state, payload)
-    },
-    [asyncType.SUCCESS](state: IQueryState, payload: IQueryByIdPayload) {
-      Mutation.detail.success(state, payload)
-    },
-    [asyncType.FAILURE](state: IQueryState, payload: IQueryByIdPayload) {
-      Mutation.detail.failure(state, payload)
-    },
-  },
-  create: {
-    [asyncType.REQUEST](state: IQueryState) {
-      Mutation.create.request(state)
-    },
-    [asyncType.SUCCESS](state: IQueryState, payload: IQueryByIdPayload) {
-      Mutation.create.success(state, payload)
-    },
-    [asyncType.FAILURE](state: IQueryState, payload: Error) {
-      Mutation.create.failure(state, payload)
-    },
-  },
-  update: {
-    [asyncType.REQUEST](state: IQueryState) {
-      Mutation.update.request(state)
-    },
-    [asyncType.SUCCESS](state: IQueryState, payload: IQueryByIdPayload) {
-      Mutation.update.success(state, payload)
-    },
-    [asyncType.FAILURE](state: IQueryState, payload: IQueryByIdPayload) {
-      Mutation.update.failure(state, payload)
-    },
-  },
-  delete: {
-    [asyncType.REQUEST](state: IQueryState) {
-      Mutation.delete.request(state)
-    },
-    [asyncType.SUCCESS](state: IQueryState, payload: IQueryByIdPayload) {
-      Mutation.delete.success(state, payload)
-    },
-    [asyncType.FAILURE](state: IQueryState, payload: Error) {
-      Mutation.delete.failure(state, payload)
-    },
-  },
+export const payloadKeyValue = (key: string, data: any) => ({
+  _key: key,
+  data,
 })
 
-export const Mutation = {
+export const payloadKeyError = (key: string, error: string) => ({
+  _key: key,
+  error,
+})
+
+export const createMutation = (
+  asyncType: IAsyncType
+): IMutationSchema<IQueryState> => ({
   list: {
-    request: getListRequest,
-    success: getListSuccess,
-    failure: getListFailure,
+    [asyncType.REQUEST]: getListRequest,
+    [asyncType.SUCCESS]: getListSuccess,
+    [asyncType.FAILURE]: getListFailure,
   },
   detail: {
-    request: getDetailRequest,
-    success: getDetailSuccess,
-    failure: getDetailFailure,
+    [asyncType.REQUEST]: getDetailRequest,
+    [asyncType.SUCCESS]: getDetailSuccess,
+    [asyncType.FAILURE]: getDetailFailure,
   },
   create: {
-    request: createDataRequest,
-    success: createDataSuccess,
-    failure: createDataFailure,
+    [asyncType.REQUEST]: createDataRequest,
+    [asyncType.SUCCESS]: createDataSuccess,
+    [asyncType.FAILURE]: createDataFailure,
   },
   update: {
-    request: updateDataByIdRequest,
-    success: updateDataByIdSuccess,
-    failure: updateDataByIdFailure,
+    [asyncType.REQUEST]: updateDataByIdRequest,
+    [asyncType.SUCCESS]: updateDataByIdSuccess,
+    [asyncType.FAILURE]: updateDataByIdFailure,
   },
   delete: {
-    request: deleteDataByIdRequest,
-    success: deleteDataByIdSuccess,
-    failure: deleteDataByIdFailure,
+    [asyncType.REQUEST]: deleteDataByIdRequest,
+    [asyncType.SUCCESS]: deleteDataByIdSuccess,
+    [asyncType.FAILURE]: deleteDataByIdFailure,
   },
-}
+})

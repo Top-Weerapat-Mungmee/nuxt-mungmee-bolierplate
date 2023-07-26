@@ -1,30 +1,18 @@
-import type { IPostState, IPostByIdPayload, IPost } from '~/types/store/post'
-import { Mutation, asyncActions } from '~/utils/vuex-query'
+import type { MutationTree } from 'vuex'
+import { PostState } from './state'
+import type { IPostByIdPayload } from '~/types/store/post'
+import { asyncActions, createMutation } from '~/utils/vuex-query'
 
 export const GET_POSTS = asyncActions('GET_POSTS')
 export const GET_POST_BY_ID = asyncActions('GET_POST_BY_ID')
 export const TOGGLE_POST_BY_ID = 'TOGGLE_POST_BY_ID'
 
-export default {
-  [GET_POSTS.REQUEST](state: IPostState) {
-    Mutation.list.request(state)
-  },
-  [GET_POSTS.SUCCESS](state: IPostState, payload: IPost[]) {
-    Mutation.list.success(state, payload)
-  },
-  [GET_POSTS.FAILURE](state: IPostState, payload: Error) {
-    Mutation.list.failure(state, payload)
-  },
-  [GET_POST_BY_ID.REQUEST](state: IPostState, payload: IPostByIdPayload) {
-    Mutation.detail.request(state, payload)
-  },
-  [GET_POST_BY_ID.SUCCESS](state: IPostState, payload: IPostByIdPayload) {
-    Mutation.detail.success(state, payload)
-  },
-  [GET_POST_BY_ID.FAILURE](state: IPostState, payload: IPostByIdPayload) {
-    Mutation.detail.failure(state, payload)
-  },
-  [TOGGLE_POST_BY_ID](_: IPostState, payload: IPostByIdPayload) {
+const mutations: MutationTree<PostState> = {
+  ...createMutation(GET_POSTS).list,
+  ...createMutation(GET_POST_BY_ID).detail,
+  [TOGGLE_POST_BY_ID](_, payload: IPostByIdPayload) {
     payload.data.completed = !payload.data.completed
   },
 }
+
+export default mutations

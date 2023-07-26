@@ -1,6 +1,6 @@
 import { IPostState } from '~/types/store/post'
 
-export default (): IPostState => ({
+const state = (): IPostState => ({
   lists: [],
   isLoading: false,
   isFetch: false,
@@ -24,3 +24,7 @@ export default (): IPostState => ({
     },
   },
 })
+
+export type PostState = ReturnType<typeof state>
+
+export default state
