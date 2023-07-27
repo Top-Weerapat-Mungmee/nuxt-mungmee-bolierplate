@@ -12,21 +12,17 @@
               required
             ></v-text-field>
           </v-col>
-          <v-col cols="12" md="8" xs="12">
+          <v-col v-once cols="12" md="8" xs="12">
             <v-btn color="primary" @click="addTask">Add Task</v-btn>
           </v-col>
         </v-row>
       </v-container>
     </v-form>
-
-    <!-- <InputField v-model="newTask" placeholder="Add new Task" @enter="addTask" />
-    <Button v-once @click="addTask">Add Task</Button> -->
     <v-container class="lighten-5">
       <v-row no-gutters>
         <v-col
           v-for="task in $store.state.task.tasks"
           :key="task.id"
-          v-memo="[task]"
           cols="12"
           sm="4"
         >
@@ -40,14 +36,10 @@
 <script>
 import { mapActions } from 'vuex'
 import Task from '@/components/Todos/Task.vue'
-// import Button from '@/components/Button.vue'
-// import InputField from '@/components/Form/InputField.vue'
 
 export default {
   components: {
     Task,
-    // Button,
-    // InputField,
   },
   data() {
     return {

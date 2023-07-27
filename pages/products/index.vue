@@ -1,9 +1,9 @@
 <template>
-  <div v-memo="[isLoading, products, isError]">
+  <div>
     <h1 class="text-header">Products</h1>
     <Button v-once color="green" @click="getProducts">Refetch</Button>
-    <n-link :to="`/products/create`">
-      <Button v-once color="blue">Create</Button>
+    <n-link v-once :to="`/products/create`">
+      <Button color="blue">Create</Button>
     </n-link>
     <template v-if="isLoading">
       <content-placeholders>

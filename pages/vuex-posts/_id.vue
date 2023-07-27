@@ -1,9 +1,9 @@
 <template>
-  <div v-memo="[isLoading, isError, postData]">
+  <div>
     <Button v-once color="blue" @click="goToPostList">Back to Posts</Button>
     <Button v-once color="green" @click="refetch">Refetch</Button>
     <Card :title="`Post #${$route.params.id}`">
-      <p v-if="Boolean(postData.id)" v-memo="[postData.id]">
+      <p v-if="Boolean(postData.id)">
         <template v-if="!isZeroPage">
           <n-link :to="`/vuex-posts/${postData.id - 1}`">
             <Button color="gray">Prev</Button>

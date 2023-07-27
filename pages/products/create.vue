@@ -36,7 +36,7 @@
           </v-col>
           <v-col cols="12" md="4" xs="12">
             <!-- <v-btn color="secondary" @click="reset">RESET</v-btn> -->
-            <v-btn color="primary" @click="goToProductList"> BACK </v-btn>
+            <v-btn v-once color="primary" @click="goToProductList">BACK</v-btn>
             <v-btn :disabled="!valid" color="primary" @click="createProduct">
               CREATE
             </v-btn>

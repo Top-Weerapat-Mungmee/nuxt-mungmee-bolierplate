@@ -1,5 +1,5 @@
 <template>
-  <div v-memo="[isLoading, posts, isError]">
+  <div>
     <h1 class="text-header">Vuex posts</h1>
     <Button v-once color="green" @click="getPosts">Refetch</Button>
     <template v-if="isLoading">

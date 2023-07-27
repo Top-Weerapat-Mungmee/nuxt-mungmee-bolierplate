@@ -2,10 +2,8 @@
 <template>
   <div>
     <Card :title="task.content" :done="task.done">
-      <Button color="blue" @click="toggleDone">{{
-        task.done ? 'Undo' : 'Done'
-      }}</Button>
-      <Button color="red" @click="removeTask">Delete</Button>
+      <Button color="blue" @click="toggleDone">{{ taskBtnText }}</Button>
+      <Button v-once color="red" @click="removeTask">Delete</Button>
     </Card>
   </div>
 </template>
@@ -24,6 +22,11 @@ export default {
     task: {
       type: Object,
       required: true,
+    },
+  },
+  computed: {
+    taskBtnText() {
+      return this.task.done ? 'Undo' : 'Done'
     },
   },
   methods: {
