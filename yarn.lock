@@ -13210,10 +13210,10 @@ vm-browserify@^1.0.1:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==
 
-vue-axios-http@^3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/vue-axios-http/-/vue-axios-http-3.2.1.tgz#d1f490c679b3523e17785028ed489340c137aed2"
-  integrity sha512-z+f3U+EqAo4ykyyQAFvVti+kxaZOnxE1NvTMK1/lPM9gXxcmYSePtHbRllutjAxz28bdRSzb0bTRCVqmUKn06w==
+vue-axios-http@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/vue-axios-http/-/vue-axios-http-3.3.1.tgz#93cb98e22b44e2dd45588e5d6681a42016e9b83c"
+  integrity sha512-q1g7m5/8/QYPsD5ijUall1djvcPXoJ0U/SOAkPCNVSeU/+Ee1Z2kEBx6lLqF3oGCTh3Ez5y2NwQDyexUePSedA==
   dependencies:
     axios "^0.27.2"
     lodash "^4.17.21"
