@@ -1,21 +1,102 @@
 <template>
-  <v-row>
-    <v-col class="text-center">
-      <img src="/v.png" alt="Vuetify.js" class="mb-5" />
-      <blockquote class="blockquote">
-        &#8220;First, solve the problem. Then, write the code.&#8221;
-        <footer>
-          <small>
-            <em>&mdash;John Johnson</em>
-          </small>
-        </footer>
-      </blockquote>
-    </v-col>
-  </v-row>
+  <el-form
+    ref="ruleForm"
+    :model="ruleForm"
+    status-icon
+    :rules="rules"
+    label-width="120px"
+    class="demo-ruleForm"
+  >
+    <el-form-item label="Password" prop="pass">
+      <el-input
+        v-model="ruleForm.pass"
+        type="password"
+        autocomplete="off"
+      ></el-input>
+    </el-form-item>
+    <el-form-item label="Confirm" prop="checkPass">
+      <el-input
+        v-model="ruleForm.checkPass"
+        type="password"
+        autocomplete="off"
+      ></el-input>
+    </el-form-item>
+    <el-form-item label="Age" prop="age">
+      <el-input v-model.number="ruleForm.age"></el-input>
+    </el-form-item>
+    <el-form-item>
+      <el-button type="primary" @click="submitForm('ruleForm')"
+        >Submit</el-button
+      >
+      <el-button @click="resetForm('ruleForm')">Reset</el-button>
+    </el-form-item>
+  </el-form>
 </template>
 
 <script>
 export default {
-  name: 'InspirePage',
+  data() {
+    const checkAge = (_, value, callback) => {
+      if (!value) {
+        return callback(new Error('Please input the age'))
+      }
+      setTimeout(() => {
+        if (!Number.isInteger(value)) {
+          callback(new Error('Please input digits'))
+        } else {
+          if (value < 18) {
+            callback(new Error('Age must be greater than 18'))
+            return
+          }
+          callback()
+        }
+      }, 1000)
+    }
+    const validatePass = (_, value, callback) => {
+      if (value === '') {
+        callback(new Error('Please input the password'))
+      } else {
+        if (this.ruleForm.checkPass !== '') {
+          this.$refs.ruleForm.validateField('checkPass')
+        }
+        callback()
+      }
+    }
+    const validatePass2 = (_, value, callback) => {
+      if (value === '') {
+        callback(new Error('Please input the password again'))
+      } else if (value !== this.ruleForm.pass) {
+        callback(new Error("Two inputs don't match!"))
+      } else {
+        callback()
+      }
+    }
+    return {
+      ruleForm: {
+        pass: '',
+        checkPass: '',
+        age: '',
+      },
+      rules: {
+        pass: [{ validator: validatePass, trigger: 'blur' }],
+        checkPass: [{ validator: validatePass2, trigger: 'blur' }],
+        age: [{ validator: checkAge, trigger: 'blur' }],
+      },
+    }
+  },
+  methods: {
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          alert('submit!')
+        } else {
+          return false
+        }
+      })
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields()
+    },
+  },
 }
 </script>

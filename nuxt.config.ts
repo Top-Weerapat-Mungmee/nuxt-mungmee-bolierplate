@@ -19,8 +19,8 @@ import {
 } from './config'
 
 export default {
-  css: [],
-  plugins: ['@/plugins/vue-placeholders.ts'],
+  css: ['element-ui/lib/theme-chalk/index.css'],
+  plugins: ['@/plugins/vue-placeholders.ts', '@/plugins/element-ui.ts'],
   components: true,
   buildModules: [
     '@nuxt/typescript-build',
@@ -43,7 +43,6 @@ export default {
     '@nuxtjs/component-cache',
     'vue-waiting/nuxt',
     'nuxt-vuex-router-sync',
-    '@nuxtjs/tailwindcss',
   ],
   auth,
   axios,
