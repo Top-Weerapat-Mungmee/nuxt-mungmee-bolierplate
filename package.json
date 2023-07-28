@@ -36,7 +36,7 @@
     "@nuxtjs/i18n": "^7.2.2",
     "@nuxtjs/pwa": "^3.3.5",
     "@nuxtjs/universal-storage": "^0.5.9",
-    "collect.js": "^4.34.3",
+    "collect.js": "^4.36.1",
     "core-js": "^3.23.2",
     "element-ui": "^2.15.13",
     "lodash": "^4.17.21",
