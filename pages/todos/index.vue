@@ -38,7 +38,8 @@ import LazyHydrate from 'vue-lazy-hydration'
 export default {
   components: {
     LazyHydrate,
-    Task: () => import('@/components/Todos/Task.vue'),
+    Task: () =>
+      import(/* webpackChunkName: "Task" */ '@/components/Todos/Task.vue'),
   },
   data() {
     return {

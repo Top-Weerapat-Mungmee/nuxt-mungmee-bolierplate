@@ -1,5 +1,5 @@
 <template>
-  <div v-memo="[isLoading, isError, productData]">
+  <div>
     <Button v-once color="blue" @click="goToProductList">Product List</Button>
     <Button v-once color="green" @click="refetch">Refetch</Button>
     <Card :title="`Product #${$route.params.id}`">

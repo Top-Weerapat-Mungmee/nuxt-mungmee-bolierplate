@@ -1,0 +1,7 @@
+branches:
+  - main
+  - alpha
+
+plugins:
+  - "@semantic-release/git"
+  - "@semantic-release/github"

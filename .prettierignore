@@ -96,3 +96,4 @@ sw.*
 *.swp
 
 assets/tailwind.scss
+.releaserc.yml

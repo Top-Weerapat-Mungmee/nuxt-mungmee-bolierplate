@@ -15,7 +15,9 @@ export default {
   components: {
     LazyHydrate,
     LazyProductList: () =>
-      import('~/modules/product/components/ProductList.vue'),
+      import(
+        /* webpackChunkName: "ProductList" */ '~/modules/product/components/ProductList.vue'
+      ),
   },
 }
 </script>

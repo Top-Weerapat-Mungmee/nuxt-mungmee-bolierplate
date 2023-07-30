@@ -16,7 +16,9 @@ export default {
   components: {
     LazyHydrate,
     LazyCreateProductForm: () =>
-      import('~/modules/product/components/form/CreateProductForm.vue'),
+      import(
+        /* webpackChunkName: "CreateProductForm" */ '~/modules/product/components/form/CreateProductForm.vue'
+      ),
   },
   data() {
     return {
