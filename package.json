@@ -2,6 +2,10 @@
   "name": "nuxtjs-boilerplate",
   "version": "1.0.0",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Top-Weerapat-Mungmee/nuxt-mungmee-bolierplate.git"
+  },
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
