@@ -49,7 +49,7 @@ jobs:
 
       - name: Semantic Release
         if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/alpha')
-        uses: cycjimmy/semantic-release-action@v3
+        uses: cycjimmy/semantic-release-action@v4
         with:
           branches: |
             [
